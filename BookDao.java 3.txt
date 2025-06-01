@@ -1,0 +1,25 @@
+import java.sql.*;
+import java.util.*;
+
+public class BookDao {
+    public void addBook(Book book) throws Exception {
+        Connection con = DBConnection.getConnection();
+        PreparedStatement ps = con.prepareStatement("INSERT INTO books (title, author, quantity) VALUES (?, ?, ?)");
+        ps.setString(1, book.title);
+        ps.setString(2, book.author);
+        ps.setInt(3, book.quantity);
+        ps.executeUpdate();
+        con.close();
+    }
+
+    public void listBooks() throws Exception {
+        Connection con = DBConnection.getConnection();
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery("SELECT * FROM books");
+        while (rs.next()) {
+            System.out.println("ID: " + rs.getInt("id") + ", Title: " + rs.getString("title") +
+                               ", Author: " + rs.getString("author") + ", Qty: " + rs.getInt("quantity"));
+        }
+        con.close();
+    }
+}

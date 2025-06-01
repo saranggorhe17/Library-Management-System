@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+public class LibraryApp {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        BookDao bookDao = new BookDao();
+
+        while (true) {
+            System.out.println("\nLibrary Menu:");
+            System.out.println("1. Add Book");
+            System.out.println("2. View Books");
+            System.out.println("3. Exit");
+
+            int choice = sc.nextInt();
+            sc.nextLine(); // consume newline
+
+            try {
+                switch (choice) {
+                    case 1:
+                        Book book = new Book();
+                        System.out.print("Enter title: ");
+                        book.title = sc.nextLine();
+                        System.out.print("Enter author: ");
+                        book.author = sc.nextLine();
+                        System.out.print("Enter quantity: ");
+                        book.quantity = sc.nextInt();
+                        bookDao.addBook(book);
+                        System.out.println("Book added!");
+                        break;
+                    case 2:
+                        bookDao.listBooks();
+                        break;
+                    case 3:
+                        System.out.println("Goodbye!");
+                        return;
+                    default:
+                        System.out.println("Invalid choice.");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
