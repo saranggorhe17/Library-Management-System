@@ -4,5 +4,5 @@ public class Book {
     String author;
     int quantity;
 
-    // Constructors, getters, setters
+    
 }
